@@ -9,12 +9,16 @@ import RegistroConfigurarCultivos from "./componentes/RegistroConfigurarCultivos
 import RegistroTipoCultivo from "./componentes/RegistroTipoCultivo";
 import VerConfigurarCultivos from "./componentes/VerConsultas/VerConfigurarCultivos";
 import Login from "./componentes/Login"
+import Index from './componentes/Index'
+
+
 function App() {
   return (
 
     <Router>
       <Barra/>
       <Route path='/' exact component={Login}/>,
+      <Route path='/index' exact component={Index}/>,
       <Route path='/RegistroGestionPredios' exact component={RegistroGestionPredios}/>,
       <Route path='/RegistroGestionarUsuarios' exact component={RegistroGestionarUsuarios}/>,
       <Route path='/RegistroGestionCultivos' exact component={RegistroGestionCultivos}/>,

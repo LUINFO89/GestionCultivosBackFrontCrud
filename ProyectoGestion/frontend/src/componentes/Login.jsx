@@ -12,6 +12,10 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+//importamos el useStae
+import { useState } from 'react';
+import Axios from 'axios'
+import Swal from 'sweetalert2'
 
 function Copyright(props) {
   return (
@@ -29,6 +33,49 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
+  const [correo,setCorreo]= useState('')// esta constate se crea para que el correo se comunique con el set y se ´pueda llamar
+  const [contrasena,setContrasena]= useState('')
+
+
+  const login = async (e)=>{
+    e.preventDefault();
+    const usuario = {correo,contrasena}
+    const respuesta = await Axios.post('/roles/login',usuario)
+    console.log(respuesta)
+
+    const mensaje = respuesta.data.mensaje
+
+    if (mensaje !== 'Bienvenido'){
+        Swal.fire({
+          icon:'error',
+          title:mensaje,
+          showConfirmButton:false,
+          timer:1500
+        })
+
+    }
+
+    else {
+      const token = respuesta.data.token
+      const nombre = respuesta.data.nombre
+      const idUsuario = respuesta.data.id
+
+      sessionStorage.setItem('token',token)
+      sessionStorage.setItem('nombre',nombre)
+      sessionStorage.setItem('idUsuario',idUsuario)
+
+      Swal.fire({
+        icon:'success',
+        title:mensaje,
+        showConfirmButton:false,
+        timer:1500
+      })
+      window.location.href = '/index'
+
+    }
+  }
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -73,7 +120,7 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" noValidate onSubmit={login} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -83,6 +130,7 @@ export default function SignInSide() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={(e) => setCorreo(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -93,6 +141,8 @@ export default function SignInSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => setContrasena(e.target.value)}
+
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
