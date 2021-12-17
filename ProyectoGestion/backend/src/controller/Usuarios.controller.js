@@ -3,12 +3,12 @@ const Usuarios = require ('../models/Usuarios.models')
 
 UsuariosCtrl.crear = async(req,res)=>{
     const {
-        nombre,apellidos,rol,date 
+        nombre,apellidos,telefono,date 
     } = req.body
     const NuevoUsuario = new Usuarios({
         nombre,
         apellidos,
-        rol,
+        telefono,
         date 
 
     })
@@ -22,10 +22,11 @@ UsuariosCtrl.crear = async(req,res)=>{
 
 }
 //lista de peticiones
-UsuariosCtrl.listar = async(req,res)=>{
-    const respuesta = await Usuarios.find()
-    res.json(respuesta)
-}
+
+
+
+
+// listar por id 
 UsuariosCtrl.listarId = async(req,res)=>{
     const id = req.params.id
     const respuesta = await Usuarios.findById({_id:id})
@@ -38,7 +39,12 @@ UsuariosCtrl.UsuariosConRoles = async(req,res)=>{
     const respuesta = await Usuarios.find({roles:id})
 
 }
-
+// ver 
+UsuariosCtrl.listar = async(req,res)=>{
+    const respuesta = await Usuarios.find()
+    res.json(respuesta)
+}
+//eliminar
 UsuariosCtrl.eliminar = async(req,res)=>{
     const id = req.params.id
     await Usuarios.findByIdAndRemove({_id:id})
@@ -47,6 +53,7 @@ UsuariosCtrl.eliminar = async(req,res)=>{
     })
 
 }
+//actualizar
 UsuariosCtrl.actualizar = async(req,res)=>{
     const id = req.params.id
     await Usuarios.findByIdAndUpdate({_id:id},req.body  )
@@ -55,6 +62,7 @@ UsuariosCtrl.actualizar = async(req,res)=>{
     })
 
 }
+// buscar
 UsuariosCtrl.buscarUsuarios = async(req,res)=>{
     const id = req.params.id
     try{

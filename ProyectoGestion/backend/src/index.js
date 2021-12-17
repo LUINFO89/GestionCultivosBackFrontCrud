@@ -17,6 +17,9 @@ app.use(cors({origen: '*'}))
 
 app.use('/roles',require('./routes/Roles.route'))
 app.use('/usuarios',require('./routes/Usuarios.route'))
+app.use('/registrocultivo',require('./routes/registrocultivo.route'))
+app.use('/gestioncultivo',require('./routes/GestionCultivo.route'))
+
 
 
 

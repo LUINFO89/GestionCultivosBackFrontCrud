@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import {
   Button,
   Container,
@@ -9,23 +9,45 @@ import {
   Form,
   FormControl,
 } from "react-bootstrap";
+
 //rfc crea todo el inicio
 
 export default function Barra() {
+  const [show, setShow] = useState(true)
+  const [opcionRegistro, setOpcionRegistro] = useState(true)
+  const [menu,setMenu] = useState(false)
+
+  useEffect(() => {
+    if(sessionStorage.getItem('token')){
+      //si el navegador tiene el token 
+      setMenu(true)
+      setShow(false)
+      setOpcionRegistro(true)
+      // en el momento que inicie sesion se camian los estados
+
+    }
+  }, []);
+
+  const salir=()=>{
+    sessionStorage.clear()
+    window.location.href="/"
+  }
+
+
   return (
     <div>
       <div>
-        <Navbar bg="dark" variant="dark" expand={false} >
+        <Navbar bg="dark" variant="dark" expand={show} >
           <Container fluid>
             <Navbar.Toggle aria-controls="offcanvasNavbar" />
             <Navbar.Brand href="/">Cultivos La Planicie</Navbar.Brand>
             <Navbar.Brand href="#"> </Navbar.Brand>
             <Navbar.Brand href="#"> </Navbar.Brand>
 
-            <Navbar.Brand href="#">
-            <i class="fas fa-user-tie"></i>  Bienvenido : Luis Hernando Soto{" "}
+            <Navbar.Brand hidden={show} href="#">
+            <i class="fas fa-user-tie"></i>  Bienvenido : {sessionStorage.getItem('nombre')}
             </Navbar.Brand>
-            <Navbar.Brand href="#"><i class="fas fa-user-times"></i> Cerrar sesión </Navbar.Brand>
+            <Navbar.Brand  hidden={show} href="#" onClick={()=>salir()} to="/"><i class="fas fa-user-times"></i> Cerrar sesión </Navbar.Brand>
             
 
             <Navbar.Offcanvas
@@ -40,7 +62,7 @@ export default function Barra() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="/">Home</Nav.Link>
+                  <Nav.Link href="/index">Home</Nav.Link>
                   {/* Administrador  */}
                   <NavDropdown
                     title="Registros de Usuario Administrador"
