@@ -1,6 +1,91 @@
 import React from "react";
+import { useState } from "react";
+import Axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default function RegistroGestionPredios() {
+
+  //import { useState } from "react";
+  //import Axios from 'axios'
+  //import Swal from 'sweetalert2'
+  //logica del crud
+  // parametros que se deben llamar del back 
+  //onChange={(e) => setNombre(e.target.value)}
+  // agregar el onchange en los input y cambiar lo que desea setear
+  // por ultimo limpiar las cajas de las funciones 
+  //setNombre("");
+  //setApellidos("");
+  const [idpredio, setIdpredio] = useState("");
+  const [idpropietario, setIdpropietario] = useState("");
+  const [cantidadhectareas, setCantidadhectareas] = useState("");
+  const [ubicacion, setUbicacion] = useState("");
+  const [usuariogestion, setUsuariogestion] = useState("");
+  const [latitudylongitud, setLatitudylongitud] = useState("");
+  
+
+        
+
+  const guardar = async (e) => {
+    e.preventDefault();
+    const CogifCultivo = {
+      // se crea la variable y se llaman los campos a guardar como en el back
+      // traer todos los campos a guardar en la base de datos
+      
+      idpredio,
+      idpropietario,
+      cantidadhectareas,
+      ubicacion,
+      latitudylongitud,
+      usuariogestion,
+    };
+
+    if (idpredio === "") {// campos que se desean validar
+      Swal.fire({
+        icon: "error",
+        title: "Debe escribir su Id",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+    if (idpropietario === "") { // campos que se desean validar
+      Swal.fire({
+        icon: "error",
+        title: "Debe escribir id propietario",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      const token = sessionStorage.getItem("token");
+      // ruta que se trabajo en el back
+      const respuesta = await Axios.post("/gestionpredios/crear", CogifCultivo, { //cambiar ruta
+        headers: { autorizacion: token },
+      });
+      const mensaje = respuesta.data.mensaje;
+      console.log(mensaje);
+      //genera mensaje de creado
+      Swal.fire({
+        icon: "seccess",
+        title: mensaje,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      // funcion para limpoar el formulario
+      // traer todos los set para borrar
+      e.target.reset();
+      
+      setIdpredio("")
+      setIdpropietario("")
+      setCantidadhectareas("")
+      setUbicacion("")
+      setUsuariogestion("")
+      setLatitudylongitud("")
+     
+    }
+  };
+
+  // fin logica
+
   return (
     //formulario card
 
@@ -15,21 +100,30 @@ export default function RegistroGestionPredios() {
               <h4>Registro Gestión Predios</h4>
             </div>
             <div className="card-body">
-              <form onSubmit={"guardar"}>
+              <form onSubmit={guardar}>
                 <div className="row">
                   <div className="form-group">
                     <label>ID PREDIO</label>
-                    <input type="text" className="form-control required" />
+                    <input type="text" className="form-control required" 
+                    onChange={(e) => setIdpredio(e.target.value)} />
+                                      
                     <label>ID PROPIETARIO</label>
-                    <input type="text" className="form-control required" />
+                    <input type="text" className="form-control required"
+                    onChange={(e) => setIdpropietario(e.target.value)}/>
+
                     <label>CANTIDAD DE HECTAREAS</label>
-                    <input type="text" className="form-control required" />
+                    <input type="text" className="form-control required" 
+                    onChange={(e) => setCantidadhectareas(e.target.value)}
+                    />
                     <label>UBICACIÓN</label>
-                    <input type="text" className="form-control required" />
+                    <input type="text" className="form-control required"
+                    onChange={(e) => setUbicacion(e.target.value)} />
                     <label>LATITUD Y LONGITUD</label>
-                    <input type="text" className="form-control required" />
+                    <input type="text" className="form-control required" 
+                    onChange={(e) => setLatitudylongitud(e.target.value)}/>
                     <label>USUARIO GESTIÓN</label>
-                    <input type="text" className="form-control required" />
+                    <input type="text" className="form-control required"
+                    onChange={(e) => setUsuariogestion(e.target.value)} />
                     <br/>
                   </div>
                 </div>
