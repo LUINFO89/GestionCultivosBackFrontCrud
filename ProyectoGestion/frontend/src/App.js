@@ -8,8 +8,14 @@ import RegistroParametrosCultivos from "./componentes/RegistroParametrosCultivos
 import RegistroConfigurarCultivos from "./componentes/RegistroConfigurarCultivos";
 import RegistroTipoCultivo from "./componentes/RegistroTipoCultivo";
 import VerConfigurarCultivos from "./componentes/VerConsultas/VerConfigurarCultivos";
+import VerGestionarUsuarios from "./componentes/VerConsultas/VerGestionarUsuarios"
 import Login from "./componentes/Login"
 import Index from './componentes/Index'
+import VerTipoCultivo from "./componentes/VerConsultas/VerTipoCultivo";
+import VerGestionCultivo from "./componentes/VerConsultas/VerGestionCultivos";
+import VerGestionPredio from "./componentes/VerConsultas/VerGestionPredios";
+import VerParametrosCultivo from "./componentes/VerConsultas/VerParametrosCultivos";
+
 
 
 function App() {
@@ -25,7 +31,17 @@ function App() {
       <Route path='/RegistroParametrosCultivos' exact component={RegistroParametrosCultivos}/>,
       <Route path='/RegistroConfigurarCultivos' exact component={RegistroConfigurarCultivos}/>,
       <Route path='/RegistroTipoCultivo' exact component={RegistroTipoCultivo}/>
+
       <Route path='/VerConfigurarCultivos' exact component={VerConfigurarCultivos}/>
+      <Route path='/VerGestionarUsuarios' exact component={VerGestionarUsuarios}/>
+      <Route path='/VerTipoCultivo' exact component={VerTipoCultivo}/>
+      <Route path='/VerGestionCultivos' exact component={VerGestionCultivo}/>
+      <Route path='/VerGestionPredios' exact component={VerGestionPredio}/>
+      <Route path='/VerParametrosCultivos' exact component={VerParametrosCultivo}/>
+
+
+
+
 
 
 

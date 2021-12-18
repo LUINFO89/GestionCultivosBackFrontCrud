@@ -153,11 +153,11 @@ export default function RegistroConfigurarCultivos() {
                   </div>
                   <div className="col-md-6">
                     <label>FECHA DE SIEMBRA DEL CULTIVO</label>
-                    <input type="text" className="form-control required" onChange={(e) => setFechasiembra(e.target.value)} />
+                    <input type="date" className="form-control required" onChange={(e) => setFechasiembra(e.target.value)} />
                   </div>
                   <div className="col-md-6">
                     <label>FECHA DE RECOGIDA DEL CULTIVO</label>
-                    <input type="text" className="form-control required" onChange={(e) => setFecharecogida(e.target.value)}/>
+                    <input type="date" className="form-control required" onChange={(e) => setFecharecogida(e.target.value)}/>
                   </div>
                 </div>
                 <br />
