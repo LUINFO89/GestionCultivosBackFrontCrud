@@ -58,14 +58,14 @@ export default function SignInSide() {
         icon:'success',
         title:mensaje,
         showConfirmButton:false,
-        timer:1500
+        timer:2500
       })
 
         window.location.href = '/index2'
 
 
     }
-    if (correo == 'gestion@gmail.com'){
+    else if (correo == 'gestion@gmail.com'){
       const token = respuesta.data.token
       const nombre = respuesta.data.nombre
       const idUsuario = respuesta.data.id
@@ -78,11 +78,11 @@ export default function SignInSide() {
         icon:'success',
         title:mensaje,
         showConfirmButton:false,
-        timer:1500
+        timer:2500
       })
         window.location.href = '/index'
     }
-    if (correo == 'config@gmail.com'){
+    else if (correo == 'config@gmail.com'){
       const token = respuesta.data.token
       const nombre = respuesta.data.nombre
       const idUsuario = respuesta.data.id
@@ -95,7 +95,7 @@ export default function SignInSide() {
         icon:'success',
         title:mensaje,
         showConfirmButton:false,
-        timer:1500
+        timer:2500
       })
         window.location.href = '/index3'
     }

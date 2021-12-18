@@ -71,7 +71,7 @@ export default function RegistroTipoCultivo() {
               <i class="fas fa-chalkboard-teacher"></i>
               </div>
               <div className="card-header bg-info text-center">
-                <h4>Registro Gestión Cultivos</h4>
+                <h4>Registro Tipos de  Cultivos</h4>
               </div>
               <div className="card-body">
                 <form onSubmit={guardar}>

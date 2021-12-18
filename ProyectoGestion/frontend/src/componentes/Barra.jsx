@@ -48,7 +48,7 @@ export default function Barra() {
             <Navbar.Brand hidden={show} href="#">
             <i class="fas fa-user-tie"></i>  Bienvenido : {sessionStorage.getItem('nombre')}
             </Navbar.Brand>
-            <Navbar.Brand  hidden={show} href="#" onClick={()=>salir()} to="/"><i class="fas fa-user-times"></i> Cerrar sesión </Navbar.Brand>
+            <Navbar.Brand  hidden={show}  onClick={()=>salir()} to="/"><i class="fas fa-user-times"></i> Cerrar sesión </Navbar.Brand>
             
 
             <Navbar.Offcanvas
@@ -57,13 +57,13 @@ export default function Barra() {
               placement="start"
             >
               <Offcanvas.Header closeButton>
-                <Offcanvas.Title id="offcanvasNavbarLabel">
+                <Offcanvas.Title hidden={show}  onClick={()=>salir()} to="/" id="offcanvasNavbarLabel">
                   Cultivos la Planicie
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="/index">Home</Nav.Link>
+                  <Nav.Link hidden={show}  onClick={()=>salir()} to="/">Exit</Nav.Link>
                   {/* Administrador  */}
                   <NavDropdown
                     title="Registros de Usuario Administrador"

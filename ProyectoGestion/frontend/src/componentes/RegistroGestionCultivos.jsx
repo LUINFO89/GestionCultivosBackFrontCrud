@@ -93,7 +93,7 @@ export default function RegistroGestionCultivos() {
               <i  class="fas fa-user-cog"></i>
             </div>
             <div className="card-header bg-info text-center">
-              <h4>Registro Gestión Cultivos</h4>
+              <h4>Gestión Predios Cultivo</h4>
             </div>
             <div className="card-body">
               <form onSubmit={guardar}>
