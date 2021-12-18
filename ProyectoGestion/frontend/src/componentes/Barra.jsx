@@ -26,6 +26,7 @@ export default function Barra() {
       // en el momento que inicie sesion se camian los estados
 
     }
+   
   }, []);
 
   const salir=()=>{

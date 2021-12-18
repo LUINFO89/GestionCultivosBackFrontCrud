@@ -39,7 +39,7 @@ ConfigurarCultivosCTRL.crear = async(req,res)=>{
      const respuesta = await NuevoCultivo.save()
      res.json({
 
-        mensaje : 'Cultivo Creado',
+        mensaje : ' Registro Cultivo Creado',
         respuesta
      })
 
@@ -73,7 +73,7 @@ ConfigurarCultivosCTRL.eliminar = async(req,res)=>{
     const id = req.params.id
     await ConfigurarCultivos.findByIdAndRemove({_id:id})
     res.json({
-        mensaje:'Persona eliminada'
+        mensaje:'Registro Eliminado'
     })
 
 }
@@ -82,7 +82,7 @@ ConfigurarCultivosCTRL.actualizar = async(req,res)=>{
     const id = req.params.id
     await ConfigurarCultivos.findByIdAndUpdate({_id:id},req.body  )
     res.json({
-        mensaje:'Persona actualizada'
+        mensaje:'Registro Actualizada'
     })
 
 }
@@ -96,6 +96,7 @@ ConfigurarCultivosCTRL.buscarUsuarios = async(req,res)=>{
     }catch (error){
 
         return res.json.status(400).json({
+            
             mensaje:'ocurrio un error ',
             error
         })

@@ -26,7 +26,7 @@ GestionprediosCtrl.crear = async(req,res)=>{
      const respuesta = await NuevoUsuario.save()
      res.json({
 
-        mensaje : 'Elemento  Creado',
+        mensaje : 'Registro  Creado',
         respuesta
      })
 
@@ -59,7 +59,7 @@ GestionprediosCtrl.eliminar = async(req,res)=>{
     const id = req.params.id
     await GestionPredios.findByIdAndRemove({_id:id})
     res.json({
-        mensaje:'Elemento eliminado'
+        mensaje:'Registro Eliminado'
     })
 
 }
@@ -68,7 +68,7 @@ GestionprediosCtrl.actualizar = async(req,res)=>{
     const id = req.params.id
     await GestionPredios.findByIdAndUpdate({_id:id},req.body  )
     res.json({
-        mensaje:'Elemento Actualizado'
+        mensaje:'Registro Actualizado'
     })
 
 }

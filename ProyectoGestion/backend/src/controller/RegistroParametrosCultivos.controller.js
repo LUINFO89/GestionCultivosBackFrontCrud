@@ -24,7 +24,7 @@ GestionparametrosCtrl.crear = async(req,res)=>{
      const respuesta = await NuevoUsuario.save()
      res.json({
 
-        mensaje : 'Usuario Creado',
+        mensaje : 'Registro Creado',
         respuesta
      })
 
@@ -57,7 +57,7 @@ GestionparametrosCtrl.eliminar = async(req,res)=>{
     const id = req.params.id
     await ParametrosCultivo.findByIdAndRemove({_id:id})
     res.json({
-        mensaje:'Persona eliminada'
+        mensaje:'Registro Eliminado'
     })
 
 }
@@ -66,7 +66,7 @@ GestionparametrosCtrl.actualizar = async(req,res)=>{
     const id = req.params.id
     await ParametrosCultivo.findByIdAndUpdate({_id:id},req.body  )
     res.json({
-        mensaje:'Persona actualizada'
+        mensaje:'Registro Actualizado'
     })
 
 }

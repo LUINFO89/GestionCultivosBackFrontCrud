@@ -5,8 +5,10 @@ import Axios from "axios";
 import Swal from "sweetalert2";
 import { Button, Modal } from "react-bootstrap";
 
-function VerConfigurarCultivos() {
+function VerGestionPredios() {
   // se colocan los parametros de los registros
+  const [usuarios, setUsuarios] = useState([]);
+  const [idPersona, setidPersona] = useState("");
 
   const [idcultivo, setIdcultivo] = useState("");
   const [nombrecultivo, setNombrecultivo] = useState("");
@@ -18,7 +20,6 @@ function VerConfigurarCultivos() {
   const [tiempoespera, setTiempoespera] = useState("");
   const [fechasiembra, setFechasiembra] = useState("");
   const [fecharecogida, setFecharecogida] = useState("");
-  const [cultivo, setCultivo] = useState([]);
 
   // se imoprtan la variables del modal
   const [show, setShow] = useState(false);
@@ -40,7 +41,7 @@ function VerConfigurarCultivos() {
     });
 
     console.log(respuesta);
-    setCultivo(respuesta.data);
+    setUsuarios(respuesta.data);
   };
 
   //metodo para crear modal y actualizar los campos
@@ -54,11 +55,12 @@ function VerConfigurarCultivos() {
     });
     // se traen los set de los datos
     console.log(respuesta.data);
+    setidPersona(respuesta.data._id);
 
-    setIdcultivo(respuesta.data._id);
+    setIdcultivo(respuesta.data.idcultivo);
     setNombrecultivo(respuesta.data.nombrecultivo);
     setCantidadsemillas(respuesta.data.cantidadsemillas);
-    setAreadestinada(respuesta.data.areadestinadad);
+    setAreadestinada(respuesta.data.areadestinada);
     setTiempodecultivo(respuesta.data.tiempodecultivo);
     setCantidadm3(respuesta.data.cantidadm3);
     setCantidadfertilizante(respuesta.data.cantidadfertilizante);
@@ -67,60 +69,102 @@ function VerConfigurarCultivos() {
     setFecharecogida(respuesta.data.fecharecogida);
   };
 
-  const data = cultivo.map((cultivo) => ({
-    idcultivo: cultivo._id,
-    nombrecultivo: cultivo.nombrecultivo,
-    cantidadsemillas: cultivo.cantidadsemillas,
-    areadestinada: cultivo.areadestinada,
-    tiempodecultivo: cultivo.tiempodecultivo,
-    cantidadm3: cultivo.cantidadm3,
-    cantidadfertilizante: cultivo.cantidadfertilizante,
-    tiempoespera: cultivo.tiempoespera,
-    fechasiembra: cultivo.fechasiembra,
-    fecharecogida: cultivo.fecharecogida,
+  const data = usuarios.map((usuarios) => ({
+    id: usuarios._id,
+
+    idcultivo: usuarios.idcultivo,
+    nombrecultivo: usuarios.nombrecultivo,
+    cantidadsemillas: usuarios.cantidadsemillas,
+    areadestinada: usuarios.areadestinada,
+    tiempodecultivo: usuarios.tiempodecultivo,
+    cantidadm3: usuarios.cantidadm3,
+    cantidadfertilizante: usuarios.cantidadfertilizante,
+    tiempoespera: usuarios.tiempoespera,
+    fechasiembra: usuarios.fechasiembra,
+    fecharecogida: usuarios.fecharecogida,
   }));
 
+  //----------------------------------------actualizar------------------------------
 
-//---------------------------------------INICIO ELIMINAR-----------------------------
+  const actualizar = async (e) => {
+    e.preventDefault();
+    const id = idPersona;
+    const usuario = {
+      // se crea la variable y se llaman los campos a guardar como en el back
+      idcultivo,
+      nombrecultivo,
+      cantidadsemillas,
+      areadestinada,
+      tiempodecultivo,
+      cantidadm3,
+      cantidadfertilizante,
+      tiempoespera,
+      fechasiembra,
+      fecharecogida,
+    };
+    const token = sessionStorage.getItem("token");
+    // ruta que se trabajo en el back
+    const respuesta = await Axios.put(
+      "/registrocultivo/actualizar/" + id,
+      usuario,
+      {
+        headers: { autorizacion: token },
+      }
+    );
 
-const eliminar  = async(id) =>{
-  
-  const token = sessionStorage.getItem('token')
-  // ruta que se trabajo en el back
-  const respuesta = await Axios.delete('/registrocultivo/eliminar/' + id , {
-    headers:{'autorizacion':token}
+    const mensaje = respuesta.data.mensaje;
 
-  })
+    obtenerDatos();
 
-  const mensaje = respuesta.data.mensaje
+    console.log(mensaje);
+    //genera mensaje de creado
+    Swal.fire({
+      icon: "seccess",
+      title: mensaje,
+      showConfirmButton: false,
+      timer: 1500,
+    });
 
-  obtenerDatos()
-  
-  console.log(mensaje)
-  //genera mensaje de creado
-  Swal.fire({
-    icon:"seccess",
-    title:mensaje,
-    showConfirmButton:false,
-    timer:1500
-  })
+    setShow(false);
+  };
 
-  setShow(false)
-  
+  //--------------------------------------fin actualizar----------------------------------
 
-}
+  //---------------------------------------INICIO ELIMINAR-----------------------------
 
+  const eliminar = async (id) => {
+    const token = sessionStorage.getItem("token");
+    // ruta que se trabajo en el back
+    const respuesta = await Axios.delete("/registrocultivo/eliminar/" + id, {
+      headers: { autorizacion: token },
+    });
 
-//----------------------------------------FIN ELIMINAR--------------------------------
+    const mensaje = respuesta.data.mensaje;
+
+    obtenerDatos();
+
+    console.log(mensaje);
+    //genera mensaje de creado
+    Swal.fire({
+      icon: "delete",
+      title: mensaje,
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
+    setShow(false);
+  };
+
+  //----------------------------------------FIN ELIMINAR--------------------------------
 
   return (
     <div className="container">
       <MaterialTable
-        title="Ver Configurar Cultivos"
+        title="Ver Registro Configuracion de Cultivos"
         columns={[
-          { title: "ID", field: "idcultivo" },
-          { title: "Nombre Cultivo", field: "nombrecultivo" },
-          { title: "Cantidad semillas", field: "cantidadsemillas" },
+
+          { title: "nombrecultivo", field: "nombrecultivo" },
+          { title: "cantidadsemillas", field: "cantidadsemillas" },
           { title: "areadestinada", field: "areadestinada" },
           { title: "tiempodecultivo", field: "tiempodecultivo" },
           { title: "cantidadm3", field: "cantidadm3" },
@@ -156,10 +200,9 @@ const eliminar  = async(id) =>{
         </Modal.Header>
         <Modal.Body>
           {/** //formulario card*/}
-       
-          <div className="container mt-9">
+          <div className="container mt-8">
             <div className="row">
-              <div className="col-md-15  mx-auto">
+              <div className="col-md-12  mx-auto">
                 <div className="card">
                   <div className="container text-center fa-5x">
                     <i class="fas fa-clipboard-check"></i>
@@ -248,7 +291,7 @@ const eliminar  = async(id) =>{
                         <div className="col-md-6">
                           <label>FECHA DE SIEMBRA DEL CULTIVO</label>
                           <input
-                            type="text"
+                            type="date"
                             className="form-control required"
                             onChange={(e) => setFechasiembra(e.target.value)}
                           />
@@ -256,29 +299,28 @@ const eliminar  = async(id) =>{
                         <div className="col-md-6">
                           <label>FECHA DE RECOGIDA DEL CULTIVO</label>
                           <input
-                            type="text"
+                            type="date"
                             className="form-control required"
                             onChange={(e) => setFecharecogida(e.target.value)}
                           />
                         </div>
                       </div>
                       <br />
-                      <button type="submit" class="btn btn-outline-info">
-                        <span class="fa fa-save"></span> Guardar
-                      </button>
+                      
                     </form>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
           {/** //formulario card*/}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={actualizar}>
             Save Changes
           </Button>
         </Modal.Footer>
@@ -288,4 +330,4 @@ const eliminar  = async(id) =>{
   );
 }
 
-export default VerConfigurarCultivos;
+export default VerGestionPredios;

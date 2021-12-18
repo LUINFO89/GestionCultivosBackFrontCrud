@@ -22,7 +22,7 @@ TiposdeCultivoCtrl.crear = async(req,res)=>{
      const respuesta = await NuevoUsuario.save()
      res.json({
 
-        mensaje : 'Usuario Creado',
+        mensaje : 'Registro Creado',
         respuesta
      })
 
@@ -55,7 +55,7 @@ TiposdeCultivoCtrl.eliminar = async(req,res)=>{
     const id = req.params.id
     await TipoCultivo.findByIdAndRemove({_id:id})
     res.json({
-        mensaje:'Persona eliminada'
+        mensaje:'Registro Eliminado'
     })
 
 }
@@ -64,7 +64,7 @@ TiposdeCultivoCtrl.actualizar = async(req,res)=>{
     const id = req.params.id
     await TipoCultivo.findByIdAndUpdate({_id:id},req.body  )
     res.json({
-        mensaje:'Persona actualizada'
+        mensaje:'Registro actualizada'
     })
 
 }

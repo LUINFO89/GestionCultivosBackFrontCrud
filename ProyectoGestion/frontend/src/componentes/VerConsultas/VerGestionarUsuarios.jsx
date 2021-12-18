@@ -68,16 +68,46 @@ function VerGestionarUsuarios() {
   }));
 
 
-  //----------------------------------------actualizar------------------------------
 
-  const actualizar = async(e) =>{
+  //----------------------------------CREAR--------------------------------------
+  const guardar = async(e) =>{
     e.preventDefault()
-    const id = idPersona
     const usuario = {// se crea la variable y se llaman los campos a guardar como en el back
       nombre,
       apellidos
 
     }
+      const token = sessionStorage.getItem('token')
+      // ruta que se trabajo en el back
+      const respuesta = await Axios.post('/usuarios/crear',usuario,{
+        headers:{'autorizacion':token}
+      })
+      const mensaje = respuesta.data.mensaje
+      console.log(mensaje)
+      //genera mensaje de creado
+      Swal.fire({
+        icon:"seccess",
+        title:mensaje,
+        showConfirmButton:false,
+        timer:1500
+      })
+    }
+
+///-------------------------------FIN ELIMINAR ---------------------
+  
+
+  //----------------------------------------actualizar------------------------------
+
+  const actualizar = async(e) =>{
+    e.preventDefault()
+    const id = id
+    const usuario = {// se crea la variable y se llaman los campos a guardar como en el back
+      nombre,
+      apellidos
+
+    }
+
+    
       const token = sessionStorage.getItem('token')
       // ruta que se trabajo en el back
       const respuesta = await Axios.put('/usuarios/actualizar/' + id,usuario,{
@@ -92,7 +122,7 @@ function VerGestionarUsuarios() {
       console.log(mensaje)
       //genera mensaje de creado
       Swal.fire({
-        icon:"seccess",
+        icon:"success",
         title:mensaje,
         showConfirmButton:false,
         timer:1500
@@ -150,7 +180,7 @@ const eliminar  = async(id) =>{
       <MaterialTable
         title="Ver Usuarios"
         columns={[
-          { title: "ID", field: "id" },
+         
           { title: "NOMBRES", field: "nombre" },
           { title: "APELLIDOS", field: "apellidos" },
         ]}
@@ -168,7 +198,7 @@ const eliminar  = async(id) =>{
           },
           {
             icon: "edit",
-            tooltip: "Editar",//activamos en onclic y agregamos el evento editarobtenerDatoP
+            tooltip: "Crear",//activamos en onclic y agregamos el evento editarobtenerDatoP
             onClick:(event,rowData)=>obtenerDatoP(rowData.id)
           },
         ]}
@@ -225,9 +255,7 @@ const eliminar  = async(id) =>{
                           */}
                       </div>
                       <br />
-                      <button type="submit" class="btn btn-outline-info">
-                        <span class="fa fa-save"></span> Guardar
-                      </button>
+                      
                     </form>
                   </div>
                 </div>
@@ -240,7 +268,7 @@ const eliminar  = async(id) =>{
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={actualizar}>
+          <Button variant="primary" onClick={guardar}>
             Save Changes
           </Button>
         </Modal.Footer>

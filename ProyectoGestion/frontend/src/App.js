@@ -11,6 +11,8 @@ import VerConfigurarCultivos from "./componentes/VerConsultas/VerConfigurarCulti
 import VerGestionarUsuarios from "./componentes/VerConsultas/VerGestionarUsuarios"
 import Login from "./componentes/Login"
 import Index from './componentes/Index'
+import Index2 from './componentes/Index2'
+import Index3 from './componentes/Index3'
 import VerTipoCultivo from "./componentes/VerConsultas/VerTipoCultivo";
 import VerGestionCultivo from "./componentes/VerConsultas/VerGestionCultivos";
 import VerGestionPredio from "./componentes/VerConsultas/VerGestionPredios";
@@ -25,6 +27,8 @@ function App() {
       <Barra/>
       <Route path='/' exact component={Login}/>,
       <Route path='/index' exact component={Index}/>,
+      <Route path='/index2' exact component={Index2}/>,
+      <Route path='/index3' exact component={Index3}/>,
       <Route path='/RegistroGestionPredios' exact component={RegistroGestionPredios}/>,
       <Route path='/RegistroGestionarUsuarios' exact component={RegistroGestionarUsuarios}/>,
       <Route path='/RegistroGestionCultivos' exact component={RegistroGestionCultivos}/>,

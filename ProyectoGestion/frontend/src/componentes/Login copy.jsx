@@ -45,7 +45,17 @@ export default function SignInSide() {
 
     const mensaje = respuesta.data.mensaje
 
-    if (correo == 'admin@gmail.com'){
+    if (mensaje !== 'Bienvenido'){
+        Swal.fire({
+          icon:'error',
+          title:mensaje,
+          showConfirmButton:false,
+          timer:1500
+        })
+
+    }
+
+    else {
       const token = respuesta.data.token
       const nombre = respuesta.data.nombre
       const idUsuario = respuesta.data.id
@@ -60,57 +70,7 @@ export default function SignInSide() {
         showConfirmButton:false,
         timer:1500
       })
-
-        window.location.href = '/index2'
-
-
-    }
-    if (correo == 'gestion@gmail.com'){
-      const token = respuesta.data.token
-      const nombre = respuesta.data.nombre
-      const idUsuario = respuesta.data.id
-
-      sessionStorage.setItem('token',token)
-      sessionStorage.setItem('nombre',nombre)
-      sessionStorage.setItem('idUsuario',idUsuario)
-
-      Swal.fire({
-        icon:'success',
-        title:mensaje,
-        showConfirmButton:false,
-        timer:1500
-      })
-        window.location.href = '/index'
-    }
-    if (correo == 'config@gmail.com'){
-      const token = respuesta.data.token
-      const nombre = respuesta.data.nombre
-      const idUsuario = respuesta.data.id
-
-      sessionStorage.setItem('token',token)
-      sessionStorage.setItem('nombre',nombre)
-      sessionStorage.setItem('idUsuario',idUsuario)
-
-      Swal.fire({
-        icon:'success',
-        title:mensaje,
-        showConfirmButton:false,
-        timer:1500
-      })
-        window.location.href = '/index3'
-    }
-
-    else  {
-      
-      Swal.fire({
-        icon:'error',
-        title:"Comunicate con el administrador ",
-        showConfirmButton:false,
-        timer:2500
-      })
-      
-     
-      
+      window.location.href = '/index'
 
     }
   }

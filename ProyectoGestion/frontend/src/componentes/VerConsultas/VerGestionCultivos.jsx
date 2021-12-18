@@ -138,12 +138,21 @@ function VerGestionCultivos() {
 
   //----------------------------------------FIN ELIMINAR--------------------------------
 
+  
+
+
+
+
+
+
+    //----------------------------------------FIN Crear--------------------------------
+
+
   return (
     <div className="container">
       <MaterialTable
         title="Ver Registro Gestión Cultivos"
         columns={[
-          { title: "ID", field: "id" },
 
           { title: "idpredio", field: "idpredio" },
           { title: "idpropietario", field: "idpropietario" },

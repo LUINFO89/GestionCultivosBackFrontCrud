@@ -129,7 +129,6 @@ function VerTipoCultivo() {
       <MaterialTable
         title="Ver Tipos de cultivo"
         columns={[
-          { title: "ID", field: "id" },
 
           { title: "NOMBRE DEL CULTIVO", field: "nombre" },
           { title: "DESCRIPCIÓN DEL CULTIVO", field: "descripciondelcultivo" },

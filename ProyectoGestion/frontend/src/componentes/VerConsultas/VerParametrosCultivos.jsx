@@ -151,7 +151,6 @@ function VerParametrosCultivos() {
       <MaterialTable
         title="Ver Registro Parametros Cultivos"
         columns={[
-          { title: "ID", field: "id" },
 
           { title: "idparametrocultivo", field: "idparametrocultivo" },
           { title: "idcultivo", field: "idcultivo" },

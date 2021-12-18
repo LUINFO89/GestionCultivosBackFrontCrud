@@ -156,7 +156,6 @@ function VerGestionPredios() {
       <MaterialTable
         title="Ver Registro Gestión Predios"
         columns={[
-          { title: "ID", field: "id" },
 
           { title: "idpredio", field: "idpredio" },
           { title: "idpropietario", field: "idpropietario" },
